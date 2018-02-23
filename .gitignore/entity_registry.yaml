@@ -1,9 +1,0 @@
-media_player.nexus_player:
-  platform: plex
-  unique_id: 04aa5df846d4ad86-com-plexapp-android
-media_player.plex_web_chrome:
-  platform: plex
-  unique_id: mpqs5eenp8giggnht4z188z1
-media_player.shield_android_tv:
-  platform: plex
-  unique_id: dbbe8e50e87694a4-com-plexapp-android
