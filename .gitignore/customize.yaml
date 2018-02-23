@@ -1,0 +1,15 @@
+    switch.bedroom_fan:
+      friendly_name: Bedroom fan
+      icon: mdi:fan 
+    switch.boys_fan:
+      friendly_name: Boys fan
+      icon: mdi:fan 
+    switch.girls_fan:
+      friendly_name: Girls fan
+      icon: mdi:fan 
+    switch.livingroom_fan:
+      friendly_name: Livingroom fan
+      icon: mdi:fan
+    cover.mygarage:
+      device_class: garage
+      friendly_name: Garage Door

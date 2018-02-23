@@ -1,0 +1,317 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret home_elevation
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/Los_Angeles
+  # Customization file
+  customize:
+    # Add an entry for each entity that you want to overwrite.
+    !include customize.yaml    
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+  themes: !include_dir_merge_named themes/
+  
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  login_attempts_threshold: 5
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+media_player:
+  - platform: plex
+
+device_tracker:
+  - platform: asuswrt
+    host: !secret router_ip
+    username: !secret router_account
+    password: !secret router_password
+    protocol: telnet
+    interval_seconds: 10
+    consider_home: 180
+    track_new_devices: yes
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+logger:
+
+panel_iframe:
+  configurator:
+    title: Configurator
+    icon: mdi:wrench
+    url: !secret configurator_url
+  terminal:
+    title: Terminal
+    icon: mdi:console-line
+    url: !secret terminal_url
+  
+cover:
+  - platform: mqtt
+    name: "mygarage"
+    state_topic: "cmnd/2/POWER2"
+    command_topic: "cmnd/sonoffSV3/POWER"
+    payload_open: "ON"
+    payload_close: "ON"
+    payload_stop: "ON"
+    state_open: "ON"
+    state_closed: "OFF"
+    optomistic: false
+    retain: false
+
+switch:
+  - platform: mqtt       
+    name: "Bedroom Fan"
+    command_topic: "cmnd/sonoff21/power2"
+    state_topic: "stat/sonoff21/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true     
+  - platform: mqtt       
+    name: "Bedroom Light"
+    command_topic: "cmnd/sonoff21/power1"
+    state_topic: "stat/sonoff21/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - platform: mqtt       
+    name: "Boys Fan"
+    command_topic: "cmnd/boys_fan/power"
+    state_topic: "stat/boys_fan/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true     
+  - platform: mqtt       
+    name: "Boys Light"
+    command_topic: "cmnd/boys_light/power"
+    state_topic: "stat/boys_light/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true    
+  - platform: mqtt   
+    name: "Christmas Lights"
+    command_topic: "cmnd/sonoff2/power"
+    state_topic: "stat/sonoff2/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - platform: mqtt       
+    name: "Entryway"
+    command_topic: "cmnd/entryway/power"
+    state_topic: "stat/entryway/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true 
+  - platform: mqtt       
+    name: "Front Room"
+    command_topic: "cmnd/frontroom/power"
+    state_topic: "stat/frontroom/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    hidden: true
+    retain: true    
+  - platform: mqtt       
+    name: "Front Room Dummy"
+    command_topic: "cmnd/frontrmdummy/power"
+    state_topic: "stat/frontrmdummy/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    hidden: true
+    retain: true  
+  - platform: mqtt       
+    name: "Garage Light"
+    command_topic: "cmnd/garage_light/power"
+    state_topic: "stat/garage_light/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    hidden: true
+    retain: true  
+  - platform: mqtt       
+    name: "Girls Fan"
+    command_topic: "cmnd/girls_fan/power"
+    state_topic: "stat/girls_fan/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    hidden: true
+    retain: true 
+  - platform: mqtt       
+    name: "Girls Light"
+    command_topic: "cmnd/girls_light/power"
+    state_topic: "stat/girls_light/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    hidden: true
+    retain: true 
+  - platform: mqtt   
+    name: "Kitchen LEDs"
+    command_topic: "cmnd/kitchen_leds/power"
+    state_topic: "stat/kitchen_leds/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - platform: mqtt       
+    name: "Kitchen Light"
+    command_topic: "cmnd/sonoff13/power"
+    state_topic: "stat/sonoff13/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - platform: mqtt       
+    name: "Kitchen Light2"
+    command_topic: "cmnd/sonoff10/power"
+    state_topic: "stat/sonoff10/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true     
+  - platform: mqtt       
+    name: "Livingroom Fan"
+    command_topic: "cmnd/sonoff6/power"
+    state_topic: "stat/sonoff6/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - platform: mqtt       
+    name: "Livingroom Light"
+    command_topic: "cmnd/sonoff7/power"
+    state_topic: "stat/sonoff7/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true
+  - platform: mqtt       
+    name: "Outside Front"
+    command_topic: "cmnd/outsidefront/power"
+    state_topic: "stat/outsidefront/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: true     
+
+  
+
+sensor:
+  - platform: yr
+  - platform: speedtest
+    server_id: 13529
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+      
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+light:
+  - platform: mqtt
+    name: "Holiday Lights"
+    command_topic: "bruh/mqttstrip/setpower"
+    state_topic: "bruh/mqttstrip/setpowerpub"
+    rgb_state_topic: "bruh/mqttstrip/setcolorpub"
+    rgb_command_topic: "bruh/mqttstrip/setcolor"
+    brightness_state_topic: "bruh/mqttstrip/setbrightnesspub"
+    brightness_command_topic: "bruh/mqttstrip/setbrightness"
+    optimistic: false
+
+input_number:
+  animation_speed:
+    name: Animation Speed
+    initial: 150
+    min: 1
+    max: 150
+    step: 10
+
+automation old: 
+  - alias: "Holiday Input Effect"
+    initial_state: True
+    hide_entity: False
+    trigger:
+      - platform: state
+        entity_id: input_select.holiday_led_effect
+    action:
+      - service: mqtt.publish
+        data_template:
+          topic: "bruh/mqttstrip/seteffect"
+          payload: '{{ trigger.to_state.state | string }}'
+
+  - alias: "Animation Speed"
+    initial_state: True
+    hide_entity: False
+    trigger:
+      - platform: state
+        entity_id: input_number.animation_speed
+    action:
+      - service: mqtt.publish
+        data_template:
+          topic: "bruh/mqttstrip/setanimationspeed"
+          payload: '{{ trigger.to_state.state | int }}'
+          
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_api_key
+    allowed_chat_ids:
+      - 393593476         
+
+###########INCLUDES#####
+automation: !include automations.yaml
+group: !include groups.yaml
+input_select: !include input_select.yaml 
+mqtt: !include mqtt.yaml
+notify: !include notify.yaml
+script: !include scripts.yaml

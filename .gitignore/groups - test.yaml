@@ -1,0 +1,30 @@
+  default_view:
+    name: Main
+    view: yes
+    entities:
+      - updater.updater
+      - sensor.yr_symbol
+      - sun.sun
+      - group.all_switches
+      - group.garage_doors
+      - group.all_lights
+      - media_player.bedroom_speaker
+      - media_player.family_room_tv
+      - media_player.guest_room
+      - media_player.kitchen_speaker
+  misc_view:
+    name: Misc
+    view: yes
+    entities:
+      - group.all_automations
+      - group.all_scripts
+      - input_number.animation_speed
+      - input_select.hass_theme
+  garage_doors:
+    name: Garage Doors
+    view: no
+    control: hidden
+    icon: mdi:garage
+    entities:
+      - cover.mygarage
+
